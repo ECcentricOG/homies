@@ -9,6 +9,7 @@ import com.eccentric.auth.dto.RegisterRequest;
 import com.eccentric.auth.dto.UserResponse;
 import com.eccentric.auth.entity.User;
 import com.eccentric.auth.repository.UserRepository;
+import com.eccentric.auth.util.JwtUtil;
 
 @Service
 public class AuthService {
@@ -19,6 +20,9 @@ public class AuthService {
 	@Autowired
 	private PasswordEncoder encoder;
 
+	@Autowired
+	private JwtUtil jwt;
+
 	public UserResponse register(RegisterRequest req) {
 		User user = new User();
 		user.setUsername(req.getUsername());
@@ -26,7 +30,8 @@ public class AuthService {
 		user.setPassword(encoder.encode(req.getPassword()));
 		user.setRole("USER");
 		User usr = userRepository.save(user);
-		return new UserResponse(usr.getId(), usr.getUsername(), usr.getEmail(), usr.getRole());
+		String token = jwt.generateToken(user.getUsername(), user.getRole());
+		return new UserResponse(usr.getId(), usr.getUsername(), usr.getEmail(), usr.getRole(), token);
 	}
 
 	public UserResponse login(LoginRequest req) {
@@ -36,6 +41,7 @@ public class AuthService {
 		if(!encoder.matches(req.getPassword(), user.getPassword())) {
 			throw new RuntimeException("Invalid Credentials");
 		}
-		return new UserResponse(user.getId(), user.getUsername(), user.getEmail(), user.getRole());
+		String token = jwt.generateToken(user.getUsername(), user.getRole());
+		return new UserResponse(user.getId(), user.getUsername(), user.getEmail(), user.getRole(), token);
 	}
 }

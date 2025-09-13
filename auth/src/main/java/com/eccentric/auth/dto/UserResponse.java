@@ -6,14 +6,16 @@ public class UserResponse {
 	private String username;
 	private String email;
 	private String role;
+	private String token;
 
 	public UserResponse(){}
 
-	public UserResponse(Long id, String username, String email, String role) {
+	public UserResponse(Long id, String username, String email, String role, String token) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.role = role;
+		this.token = token;
 	}
 
 	public Long getId() {
@@ -39,5 +41,11 @@ public class UserResponse {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 }
