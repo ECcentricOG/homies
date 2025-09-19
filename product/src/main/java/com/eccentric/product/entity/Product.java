@@ -27,6 +27,65 @@ public class Product {
 		this.stock = stock;
 	}
 
+	public Product(Builder builder) {
+		this.id = builder.id;
+		this.name = builder.name;
+		this.brand = builder.brand;
+		this.price = builder.price;
+		this.description = builder.description;
+		this.imgPath = builder.imgPath;
+		this.stock = builder.stock;
+	}
+
+	public static class Builder {
+		private Long id;
+		private String name;
+		private String brand;
+		private Double price;
+		private String description;
+		private String imgPath;
+		private Integer stock = 10;
+
+		public Builder id(Long id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder brand(String brand) {
+			this.brand = brand;
+			return this;
+		}
+
+		public Builder price(Double price) {
+			this.price = price;
+			return this;
+		}
+
+		public Builder description(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public Builder imgPath(String imgPath) {
+			this.imgPath = imgPath;
+			return this;
+		}
+
+		public Builder stock(Integer stock) {
+			this.stock = stock;
+			return this;
+		}
+
+		public Product build() {
+			return new Product(this);
+		}
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: product
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/productdb
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+files:
+  upload-dir: ./uploads/images
+
+jwt:
+  secret: NCghF+VKMk9N/eosOApLlL4lgGvprJKw7f7HT8Yh3qWyjpakpZyjDcbEHLkxhC4EgJqecA/nlM6bdmZTnIV/kA==
+  expiration: 86400000
